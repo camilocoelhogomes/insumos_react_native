@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, TextInput, View, Text, TouchableHighlight } from 'react-native';
-
-
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { MaskedTextInput } from "react-native-mask-text";
 
 const InputField = ({ macroNutrient }) => {
     const {
@@ -15,11 +14,21 @@ const InputField = ({ macroNutrient }) => {
 
     return (
         <View style={localStyle.main}>
-            <Text style={localStyle.inputLabel}>{label}</Text>
-            <TextInput
-                placeholder={unit}
-                keyboardType='numeric'
-            />
+            <View style={localStyle.inputArea}>
+                <Text style={localStyle.inputLabel}>{label}</Text>
+                <MaskedTextInput
+                    style={localStyle.input}
+                    type='currency'
+                    options={{
+                        suffix: ' ' + unit,
+                        decimalSeparator: ',',
+                        groupSeparator: '.',
+                    }}
+                    onChangeText={(value, rawValue) => console.log([value, rawValue])}
+                    placeholder={unit}
+                    keyboardType='numeric'
+                />
+            </View>
             <View>
                 <TouchableHighlight >
                     <View >
@@ -40,12 +49,28 @@ export default InputField
 
 const localStyle = StyleSheet.create({
     main: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignSelf: "stretch"
+        justifyContent: 'space-between',
+        alignSelf: "stretch",
+        height: 81,
+        flexDirection: 'row',
+        paddingTop: 7,
+        paddingBottom: 7,
+    },
+    inputArea: {
+        justifyContent: 'space-between',
     },
     inputLabel: {
         fontFamily: 'Inter500',
         fontSize: 15,
+    },
+    input: {
+        height: 40,
+        keyboardType: 'numeric',
+        textAlign: 'right',
+        fontSize: 16,
+        width: 180,
+        borderBottomWidth: 1,
+        borderBottomColor: '#A3A3A3',
+        fontFamily: 'Inter400'
     }
 })
