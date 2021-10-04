@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import { MaskedTextInput } from "react-native-mask-text";
+import { FontAwesome } from '@expo/vector-icons';
 
 const InputField = ({ macroNutrient }) => {
     const {
@@ -29,15 +30,15 @@ const InputField = ({ macroNutrient }) => {
                     keyboardType='numeric'
                 />
             </View>
-            <View>
-                <TouchableHighlight >
+            <View style={localStyle.buttomArea}>
+                <TouchableHighlight underlayColor="#F0754FEA" style={localStyle.buttomMinus} onPress={() => ''}>
                     <View >
-                        <Text>Mais</Text>
+                        <FontAwesome name="minus" size={24} color="white" />
                     </View>
                 </TouchableHighlight>
-                <TouchableHighlight >
+                <TouchableHighlight underlayColor="#FA5F43EA" style={localStyle.buttomPlus} onPress={() => ''}>
                     <View >
-                        <Text>Menos</Text>
+                        <FontAwesome name="plus" size={24} color="white" />
                     </View>
                 </TouchableHighlight>
             </View>
@@ -56,13 +57,16 @@ const localStyle = StyleSheet.create({
         paddingTop: 7,
         paddingBottom: 7,
     },
+
     inputArea: {
         justifyContent: 'space-between',
     },
+
     inputLabel: {
         fontFamily: 'Inter500',
         fontSize: 15,
     },
+
     input: {
         height: 40,
         keyboardType: 'numeric',
@@ -72,5 +76,31 @@ const localStyle = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#A3A3A3',
         fontFamily: 'Inter400'
+    },
+
+    buttomArea: {
+        flexDirection: 'row',
+        width: 90,
+        justifyContent: 'space-between',
+        alignItems: 'flex-end'
+    },
+
+    buttomPlus: {
+        alignItems: "center",
+        justifyContent: 'center',
+        backgroundColor: "#FA5F43",
+        borderRadius: 40,
+        width: 40,
+        height: 40,
+    },
+
+    buttomMinus: {
+        alignItems: "center",
+        justifyContent: 'center',
+        backgroundColor: "#F0754F",
+        borderRadius: 40,
+        width: 40,
+        height: 40,
     }
+
 })
