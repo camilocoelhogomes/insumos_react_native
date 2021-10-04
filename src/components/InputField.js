@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, Text, TouchableHighlight } from 'react-native';
 
+
+
 const InputField = ({ macroNutrient }) => {
     const {
         value,
@@ -8,9 +10,12 @@ const InputField = ({ macroNutrient }) => {
         label,
         item
     } = macroNutrient
+
+
+
     return (
         <View style={localStyle.main}>
-            <Text>{label}</Text>
+            <Text style={localStyle.inputLabel}>{label}</Text>
             <TextInput
                 placeholder={unit}
                 keyboardType='numeric'
@@ -37,7 +42,10 @@ const localStyle = StyleSheet.create({
     main: {
         flex: 1,
         justifyContent: 'flex-start',
-        backgroundColor: 'red',
         alignSelf: "stretch"
+    },
+    inputLabel: {
+        fontFamily: 'Inter500',
+        fontSize: 15,
     }
 })
