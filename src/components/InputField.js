@@ -69,7 +69,6 @@ const localStyle = StyleSheet.create({
 
     input: {
         height: 40,
-        keyboardType: 'numeric',
         textAlign: 'right',
         fontSize: 16,
         width: 180,
