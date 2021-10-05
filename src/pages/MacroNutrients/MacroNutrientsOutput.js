@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 const MacroNutrientsOutputs = ({ macroNutrientsValues }) => {
 
     return (
         <View>
-            Camilo
+            <Text>
+                Camilo
+            </Text>
         </View>
     )
 }
 
-const localStyle = StyleSheet.create();
 
 export default MacroNutrientsOutputs;
