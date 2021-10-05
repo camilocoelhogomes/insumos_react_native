@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
-import { MaskedTextInput } from "react-native-mask-text";
+import { StyleSheet, View, Text, TouchableHighlight, TextInput } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValues }) => {
@@ -8,46 +7,54 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
         value,
         unit,
         label,
-        item
+        item,
+        step
     } = macroNutrient
 
-    const changeHandler = (value, rawValue, item) => {
+    const changeHandler = (value, item) => {
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
-                return { ...macroNutrient, value: rawValue }
+                return { ...macroNutrient, value: value }
             }
             return { ...macroNutrient }
         })
         setMacroNutrientsValues(NewMacroNutrientsValues);
-        console.log(NewMacroNutrientsValues)
     }
 
+    const buttonChange = (value, step, item, operation) => {
+        const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
+            if (macroNutrient.item === item) {
+                if (operation === '+') {
+                    return { ...macroNutrient, value: (value + step) }
+                }
+                if (operation === '-') {
+                    return { ...macroNutrient, value: (value - step) }
+                }
+            }
+            return { ...macroNutrient }
+        })
+        setMacroNutrientsValues(NewMacroNutrientsValues);
+    }
 
     return (
         <View style={localStyle.main}>
             <View style={localStyle.inputArea}>
                 <Text style={localStyle.inputLabel}>{label}</Text>
-                <MaskedTextInput
+                <TextInput
                     style={localStyle.input}
-                    type='currency'
-                    options={{
-                        suffix: ' ' + unit,
-                        decimalSeparator: ',',
-                        groupSeparator: '.',
-                    }}
-                    onChangeText={(value, rawValue) => changeHandler(value, rawValue, item)}
+                    onChangeText={(value) => changeHandler(value, item)}
                     placeholder={unit}
                     keyboardType='numeric'
-                    value={isNaN(value) ? 0 + ' ' + unit : value + ' ' + unit}
+                    value={value}
                 />
             </View>
             <View style={localStyle.buttomArea}>
-                <TouchableHighlight underlayColor="#F0754FEA" style={localStyle.buttomMinus} onPress={() => ''}>
+                <TouchableHighlight underlayColor="#F0754FEA" style={localStyle.buttomMinus} onPress={() => buttonChange(value, step, item, '-')}>
                     <View >
                         <FontAwesome name="minus" size={24} color="white" />
                     </View>
                 </TouchableHighlight>
-                <TouchableHighlight underlayColor="#FA5F43EA" style={localStyle.buttomPlus} onPress={() => ''}>
+                <TouchableHighlight underlayColor="#FA5F43EA" style={localStyle.buttomPlus} onPress={() => buttonChange(value, step, item, '+')}>
                     <View >
                         <FontAwesome name="plus" size={24} color="white" />
                     </View>

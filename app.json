@@ -20,6 +20,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.component.insumos",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/img/favicon-96x96.png",
         "backgroundColor": "#FFFFFF"
