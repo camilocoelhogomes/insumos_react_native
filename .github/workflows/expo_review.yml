@@ -15,7 +15,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - run: npm install
       - run: expo publish --release-channel=pr-${{ github.event.number }}
-      - uses: unsplash/comment-on-pr@main
+      - uses: unsplash/comment-on-pr@develop
         env:
           GITHUB_TOKEN: ${{ secrets.CAMILO_TOKEN }}
         with:
