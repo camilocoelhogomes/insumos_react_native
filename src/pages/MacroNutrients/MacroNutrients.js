@@ -11,7 +11,12 @@ const MacroNutrients = () => {
             <Text style={localStyle.title}>Informações de Plantio</Text>
             {
                 macroNutrientsValues.map((macroNutrient, key) =>
-                    <InputField key={key} macroNutrient={macroNutrient} />
+                    <InputField
+                        key={key}
+                        macroNutrient={macroNutrient}
+                        macroNutrientsValues={macroNutrientsValues}
+                        setMacroNutrientsValues={setMacroNutrientsValues}
+                    />
                 )
             }
         </View>

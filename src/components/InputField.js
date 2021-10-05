@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import { MaskedTextInput } from "react-native-mask-text";
 import { FontAwesome } from '@expo/vector-icons';
 
-const InputField = ({ macroNutrient }) => {
+const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValues }) => {
     const {
         value,
         unit,
@@ -11,6 +11,16 @@ const InputField = ({ macroNutrient }) => {
         item
     } = macroNutrient
 
+    const changeHandler = (value, rawValue, item) => {
+        const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
+            if (macroNutrient.item === item) {
+                return { ...macroNutrient, value: rawValue }
+            }
+            return { ...macroNutrient }
+        })
+        setMacroNutrientsValues(NewMacroNutrientsValues);
+        console.log(NewMacroNutrientsValues)
+    }
 
 
     return (
@@ -25,9 +35,10 @@ const InputField = ({ macroNutrient }) => {
                         decimalSeparator: ',',
                         groupSeparator: '.',
                     }}
-                    onChangeText={(value, rawValue) => console.log([value, rawValue])}
+                    onChangeText={(value, rawValue) => changeHandler(value, rawValue, item)}
                     placeholder={unit}
                     keyboardType='numeric'
+                    value={isNaN(value) ? 0 + ' ' + unit : value + ' ' + unit}
                 />
             </View>
             <View style={localStyle.buttomArea}>
