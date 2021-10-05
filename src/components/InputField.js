@@ -43,10 +43,12 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
                 <TextInput
                     style={localStyle.input}
                     onChangeText={(value) => changeHandler(value, item)}
-                    placeholder={unit}
                     keyboardType='numeric'
                     value={value.toString()}
                 />
+                <View>
+                    <Text>{unit}</Text>
+                </View>
             </View>
             <View style={localStyle.buttomArea}>
                 <TouchableHighlight underlayColor="#F0754FEA" style={localStyle.buttomMinus} onPress={() => buttonChange(value, step, item, '-')}>
