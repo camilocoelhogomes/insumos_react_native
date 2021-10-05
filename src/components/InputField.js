@@ -14,7 +14,7 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
     const changeHandler = (value, item) => {
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
-                return { ...macroNutrient, value: value }
+                return { ...macroNutrient, value: Number(value) }
             }
             return { ...macroNutrient }
         })
@@ -25,10 +25,10 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
                 if (operation === '+') {
-                    return { ...macroNutrient, value: (value + step) }
+                    return { ...macroNutrient, value: Number(value + step) }
                 }
                 if (operation === '-') {
-                    return { ...macroNutrient, value: (value - step) }
+                    return { ...macroNutrient, value: Number(value - step) }
                 }
             }
             return { ...macroNutrient }
@@ -45,7 +45,7 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
                     onChangeText={(value) => changeHandler(value, item)}
                     placeholder={unit}
                     keyboardType='numeric'
-                    value={value}
+                    value={value.toString()}
                 />
             </View>
             <View style={localStyle.buttomArea}>
