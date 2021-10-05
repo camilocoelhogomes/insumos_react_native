@@ -19,4 +19,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CAMILO_TOKEN }}
         with:
-          msg: App is ready for review, you can [see it here](https://expo.dev/@camilocoelhogomes/insumos_react_native?release-channel=pr-${{ github.event.number }}).
+          msg: App is ready for review, you can [see it here](https://expo.dev/${{github.actor.login}/${{github.repo}}?release-channel=pr-${{ github.event.number }}).
