@@ -4,9 +4,9 @@
     "slug": "insumos_react_native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/img/favicon-96x96.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/img/favicon-96x96.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,13 +20,15 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.component.insumos",
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/img/favicon-96x96.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/img/favicon-96x96.png"
     }
   }
 }
