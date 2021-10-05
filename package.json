@@ -14,7 +14,10 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+<<<<<<< HEAD
     "react-native-mask-text": "^0.4.0",
+=======
+>>>>>>> develop
     "react-native-web": "~0.13.12",
     "vercel": "^23.1.2"
   },
