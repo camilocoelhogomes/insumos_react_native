@@ -5,7 +5,6 @@ import InputField from '../../components/InputField';
 const MacroNutrients = () => {
     const [macroNutrientsValues, setMacroNutrientsValues] = useState([...macroNutrientsInputs]);
 
-    console.log(macroNutrientsValues);
     return (
         <View style={localStyle.main}>
             <Text style={localStyle.title}>Informações de Plantio</Text>
