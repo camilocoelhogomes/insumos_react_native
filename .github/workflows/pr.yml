@@ -13,10 +13,10 @@ jobs:
         with:
           expo-version: 4.x
           token: ${{ secrets.EXPO_TOKEN }}
-      - run: npm install
+      - run: yarn install
       - run: expo publish --release-channel=pr-${{ github.event.number }}
-      - uses: unsplash/comment-on-pr@develop
+      - uses: unsplash/comment-on-pr@master
         env:
-          GITHUB_TOKEN: ${{ secrets.CAMILO_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          msg: App is ready for review, you can [see it here](https://expo.dev/${{github.actor.login}/${{github.repo}}?release-channel=pr-${{ github.event.number }}).
+          msg: App is ready for review, you can [see it here](https://expo.dev/@bycedric/use-expo?release-channel=pr-${{ github.event.number }}).
