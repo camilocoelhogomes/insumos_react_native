@@ -1,3 +1,5 @@
+import { fertilizantesControlLiberation } from "./fertilizantes";
+
 const coffeeMacroCalculation = ({
     productivity,
     distanceLines,
@@ -13,7 +15,14 @@ const coffeeMacroCalculation = ({
     ];
     let recomendation = baseNPK;
 
-    const plantDensity = 10000 / (distanceLines * distancePlants);
+    let plantDensity = 0;
+
+    if (!distancePlants || !distancePlants) {
+        plantDensity = 10000
+    } else {
+        plantDensity = 10000 / (distanceLines * distancePlants);
+    }
+
     const saturation = 315;
 
     if (plantDensity > 6000) {
@@ -117,7 +126,7 @@ const coffeeMacroCalculation = ({
         })
     }
 
-    recomendation = recomendation.map((item, key) => {
+    recomendation = recomendation.map((item) => {
         return {
             ...item,
             min: item.min * productivity,
@@ -137,8 +146,77 @@ const coffeeMacroCalculation = ({
         })
     }
 
+    const convencionalRecomendation = recomendation.map((item) => {
+        if (item.label === 'N') {
+            return {
+                ...item,
+                min: item.min * 1.5,
+                max: item.max * 1.7,
+            }
+        }
+        return {
+            ...item,
+            min: item.min * 1.2,
+            max: item.max * 1.3,
+        }
+    })
 
-    return recomendation;
+    const convencionalRecomendationFilter = [{
+        label: 'P/N',
+        min: convencionalRecomendation[1].min / convencionalRecomendation[0].max,
+        max: convencionalRecomendation[1].max / convencionalRecomendation[0].min,
+    }, {
+        label: 'K/N',
+        min: convencionalRecomendation[2].min / convencionalRecomendation[0].max,
+        max: convencionalRecomendation[2].max / convencionalRecomendation[0].min,
+    }]
+
+    const controlLiberationRecomendation = recomendation.map((item) => {
+        return {
+            ...item,
+            min: item.min * 1.2,
+            max: item.max * 1.3,
+        }
+    })
+
+    const controlLiberationRecomendationFilter = [{
+        label: 'P/N',
+        min: controlLiberationRecomendation[1].min / controlLiberationRecomendation[0].max,
+        max: controlLiberationRecomendation[1].max / controlLiberationRecomendation[0].min,
+    }, {
+        label: 'K/N',
+        min: controlLiberationRecomendation[2].min / controlLiberationRecomendation[0].max,
+        max: controlLiberationRecomendation[2].max / controlLiberationRecomendation[0].min,
+    }]
+
+    let fertilizantesControlLiberationRecomendation = fertilizantesControlLiberation.filter(
+        fertilizante => (fertilizante.K / fertilizante.N) > controlLiberationRecomendationFilter[1].min && (fertilizante.K / fertilizante.N) < controlLiberationRecomendationFilter[1].max
+    );
+
+    fertilizantesControlLiberationRecomendation = fertilizantesControlLiberationRecomendation.filter(
+        fertilizante => {
+            if (controlLiberationRecomendationFilter[0].max > 0) {
+                return fertilizante.P > 0
+            }
+            return fertilizante.P === 0
+        }
+    )
+
+
+    /*
+    fertilizantesControlLiberation.forEach(
+        fertilizante => {
+            if ((fertilizante.K / fertilizante.N) > controlLiberationRecomendationFilter[1].min &&
+                (fertilizante.K / fertilizante.N) < controlLiberationRecomendationFilter[1].max) {
+                if ((fertilizante.P / fertilizante.N) > controlLiberationRecomendationFilter[0].min &&
+                    (fertilizante.P / fertilizante.N) < controlLiberationRecomendationFilter[0].max) {
+                    fertilizantesControlLiberationRecomendation.push(fertilizante)
+                }
+            }
+        }
+    )
+    */
+    return { fertilizantesControlLiberationRecomendation };
 }
 
 export {

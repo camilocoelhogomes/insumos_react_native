@@ -31,13 +31,10 @@ const MacroNutrientsOutputs = ({ macroNutrientsValues }) => {
         }))
     }, [macroNutrientsValues])
 
+    console.log(output)
     return (
         <View>
-            <Text>
-                N max: {output[0].max}, N min: {output[0].min}
-                P max: {output[1].max}, P min: {output[1].min}
-                K max: {output[2].max}, K min: {output[2].min}
-            </Text>
+
         </View>
     )
 }

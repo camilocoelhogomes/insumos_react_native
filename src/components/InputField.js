@@ -25,10 +25,10 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
                 if (operation === '+') {
-                    return { ...macroNutrient, value: Number(value + step).toFixed(0) }
+                    return { ...macroNutrient, value: Math.round((Number(value) + step) * 100) / 100 }
                 }
                 if (operation === '-') {
-                    return { ...macroNutrient, value: Number(value - step).toFixed(0) }
+                    return { ...macroNutrient, value: Math.round((Number(value) - step) * 100) / 100 }
                 }
             }
             return { ...macroNutrient }
