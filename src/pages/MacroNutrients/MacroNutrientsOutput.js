@@ -11,16 +11,32 @@ const MacroNutrientsOutputs = ({ macroNutrientsValues }) => {
         potassium
     ] = macroNutrientsValues
 
-    const [output, setOutput] = useState(coffeeMacroCalculation({ productivity: productivity.value }));
+    const [output, setOutput] = useState(coffeeMacroCalculation({
+        productivity: productivity.value,
+        distanceLines: distanceLines.value,
+        distancePlants: distancePlants.value,
+        temperature: temperature.value,
+        phosphor: phosphor.value,
+        potassium: potassium.value,
+    }));
 
     useEffect(() => {
-        setOutput(coffeeMacroCalculation({ productivity: productivity.value }))
+        setOutput(coffeeMacroCalculation({
+            productivity: productivity.value,
+            distanceLines: distanceLines.value,
+            distancePlants: distancePlants.value,
+            temperature: temperature.value,
+            phosphor: phosphor.value,
+            potassium: potassium.value,
+        }))
     }, [macroNutrientsValues])
 
     return (
         <View>
             <Text>
-                N: {output[0]} P:{output[1]} K: {output[2]}
+                N max: {output[0].max}, N min: {output[0].min}
+                P max: {output[1].max}, P min: {output[1].min}
+                K max: {output[2].max}, K min: {output[2].min}
             </Text>
         </View>
     )
