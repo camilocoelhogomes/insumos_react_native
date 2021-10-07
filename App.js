@@ -5,8 +5,15 @@ import MacroNutrients from './src/pages/MacroNutrients/MacroNutrients';
 
 export default function App() {
   const [loaded] = useFonts({
-    Inter500: require('./assets/fonts/Inter-Medium.ttf'),
+    Inter100: require('./assets/fonts/Inter-Thin.ttf'),
+    Inter200: require('./assets/fonts/Inter-ExtraLight.ttf'),
+    Inter300: require('./assets/fonts/Inter-Light.ttf'),
     Inter400: require('./assets/fonts/Inter-Regular.ttf'),
+    Inter500: require('./assets/fonts/Inter-Medium.ttf'),
+    Inter600: require('./assets/fonts/Inter-SemiBold.ttf'),
+    Inter700: require('./assets/fonts/Inter-Bold.ttf'),
+    Inter800: require('./assets/fonts/Inter-ExtraBold.ttf'),
+    Inter900: require('./assets/fonts/Inter-Black.ttf'),
   });
 
   const [hasSoloAnalisys, setHasSoloAnalisys] = useState(true);

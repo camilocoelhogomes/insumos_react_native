@@ -193,29 +193,24 @@ const coffeeMacroCalculation = ({
         fertilizante => (fertilizante.K / fertilizante.N) > controlLiberationRecomendationFilter[1].min && (fertilizante.K / fertilizante.N) < controlLiberationRecomendationFilter[1].max
     );
 
-    fertilizantesControlLiberationRecomendation = fertilizantesControlLiberationRecomendation.filter(
-        fertilizante => {
-            if (controlLiberationRecomendationFilter[0].max > 0) {
-                return fertilizante.P > 0
-            }
-            return fertilizante.P === 0
-        }
-    )
 
-
-    /*
-    fertilizantesControlLiberation.forEach(
+    fertilizantesControlLiberationRecomendation = fertilizantesControlLiberationRecomendation.map(
         fertilizante => {
-            if ((fertilizante.K / fertilizante.N) > controlLiberationRecomendationFilter[1].min &&
-                (fertilizante.K / fertilizante.N) < controlLiberationRecomendationFilter[1].max) {
-                if ((fertilizante.P / fertilizante.N) > controlLiberationRecomendationFilter[0].min &&
-                    (fertilizante.P / fertilizante.N) < controlLiberationRecomendationFilter[0].max) {
-                    fertilizantesControlLiberationRecomendation.push(fertilizante)
+            return {
+                formula: `${fertilizante.N}-${fertilizante.P}-${fertilizante.K}`,
+                qtdHa: {
+                    min: Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N), controlLiberationRecomendation[2].min * 100 / (fertilizante.K)),
+                    max: Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N), controlLiberationRecomendation[2].max * 100 / (fertilizante.K)),
+                },
+                qtdPl: {
+                    min: Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N) / (plantDensity / 1000), controlLiberationRecomendation[2].min * 100 / (fertilizante.K) / (plantDensity / 1000)),
+                    max: Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N) / (plantDensity / 1000), controlLiberationRecomendation[2].max * 100 / (fertilizante.K) / (plantDensity / 1000)),
                 }
             }
         }
     )
-    */
+
+
     return { fertilizantesControlLiberationRecomendation };
 }
 
