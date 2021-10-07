@@ -14,7 +14,7 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
     const changeHandler = (value, item) => {
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
-                return { ...macroNutrient, value: Number(value) }
+                return { ...macroNutrient, value: Number(value).toFixed(0) }
             }
             return { ...macroNutrient }
         })
@@ -25,10 +25,10 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
                 if (operation === '+') {
-                    return { ...macroNutrient, value: Number(value + step) }
+                    return { ...macroNutrient, value: Number(value + step).toFixed(0) }
                 }
                 if (operation === '-') {
-                    return { ...macroNutrient, value: Number(value - step) }
+                    return { ...macroNutrient, value: Number(value - step).toFixed(0) }
                 }
             }
             return { ...macroNutrient }
