@@ -29,14 +29,14 @@ const macroNutrientsInputs = [
     },
     {
         value: 8,
-        unit: 'P mg/dm³',
+        unit: 'mg/dm³',
         label: 'Fósforo',
         item: 'phosphor',
         step: 2,
     },
     {
         value: 80,
-        unit: 'K mg/dm³',
+        unit: 'mg/dm³',
         label: 'Potássio',
         item: 'potassium',
         step: 10,

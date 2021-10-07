@@ -41,7 +41,6 @@ const localStyle = StyleSheet.create({
         elevation: 1,
         marginTop: 16,
         padding: 20,
-        gap: 8,
     },
     outputLine: {
         flexDirection: 'row',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Switch, View, Text, StatusBar } from 'react-native';
+import { SafeAreaView, StyleSheet, Switch, View, Text, StatusBar, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 import MacroNutrients from './src/pages/MacroNutrients/MacroNutrients';
 
@@ -23,18 +23,20 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <View style={styles.soloAnalisysArea}>
-        <Text>Possui análise de solo?</Text>
-        <Switch
-          style={styles.switch}
-          value={hasSoloAnalisys}
-          onValueChange={() => setHasSoloAnalisys(!hasSoloAnalisys)}
-          trackColor={{ false: "#767577", true: "#FA5F4399" }}
-          thumbColor={hasSoloAnalisys ? "#FA5F43" : "#F0754F"}
-          ios_backgroundColor="#FA5F43"
-        />
-      </View>
-      <MacroNutrients />
+      <ScrollView>
+        <View style={styles.soloAnalisysArea}>
+          <Text>Possui análise de solo?</Text>
+          <Switch
+            style={styles.switch}
+            value={hasSoloAnalisys}
+            onValueChange={() => setHasSoloAnalisys(!hasSoloAnalisys)}
+            trackColor={{ false: "#767577", true: "#FA5F4399" }}
+            thumbColor={hasSoloAnalisys ? "#FA5F43" : "#F0754F"}
+            ios_backgroundColor="#FA5F43"
+          />
+        </View>
+        <MacroNutrients />
+      </ScrollView>
     </SafeAreaView>
   );
 }
