@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { macroNutrientsInputs } from '../../DataBase/coffeeInputs';
 import InputField from '../../components/InputField';
 import MacroNutrientsOutputs from './MacroNutrientsOutput';
+
 const MacroNutrients = () => {
     const [macroNutrientsValues, setMacroNutrientsValues] = useState([...macroNutrientsInputs]);
 
@@ -19,7 +20,7 @@ const MacroNutrients = () => {
                     />
                 )
             }
-            <MacroNutrientsOutputs />
+            <MacroNutrientsOutputs macroNutrientsValues={macroNutrientsValues} />
         </View>
     )
 }
