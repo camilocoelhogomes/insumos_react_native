@@ -32,16 +32,11 @@ const MacroNutrientsOutputs = ({ macroNutrientsValues }) => {
         }))
     }, [macroNutrientsValues])
 
-
+    console.log(output);
     return (
-        <View style={localStyle.main}>
-            <Text style={localStyle.title}>Liberação Controlada</Text>
-            {
-                output.fertilizantesControlLiberationRecomendation.map(
-                    (recomendation, key) => <OutputCard key={key} recomendation={recomendation} />
-                )
-            }
-        </View>
+        < View >
+            <Text>Camilo</Text>
+        </View >
     )
 }
 

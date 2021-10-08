@@ -1,5 +1,87 @@
 import { fertilizantesControlLiberation } from "./fertilizantes";
 
+const fertilyzerSelector = (fertilyzerLibrary, recomendation) => {
+    const normalizeRecomendation = [
+        {
+            label: 'P',
+            min: recomendation[1].min / recomendation[0].max,
+            max: recomendation[1].max / recomendation[0].min,
+        },
+        {
+            label: 'K',
+            min: recomendation[2].min / recomendation[0].max,
+            max: recomendation[2].max / recomendation[0].min,
+        }
+    ]
+
+    const normalizeLibrary = fertilyzerLibrary.map(fertilyzer => {
+        return { 'P': fertilyzer.P / fertilyzer.N, 'K': fertilyzer.K / fertilyzer.N, }
+    });
+
+    const filteredPhosphor = normalizeLibrary.filter(fertilyzer => {
+        return !!normalizeRecomendation[0].min === !!fertilyzer.P
+    });
+
+    const normalizePotassium = filteredPhosphor.map(fertilyzer => fertilyzer.K).sort((a, b) => a - b);
+
+    const fuzzyArray = normalizePotassium.map((item, index) => {
+        if (index === 0) {
+            return (number) => {
+                if (number <= item) return 100;
+                else {
+                    let x2 = normalizePotassium[1];
+                    let x1 = item;
+                    const a = 100 / (x1 - x2);
+                    const b = (-x2 * 100) / (x1 - x2);
+                    return (a * number + b);
+                };
+            }
+        } else if (index === normalizePotassium.length - 1) {
+            return (number) => {
+                if (number <= item) {
+                    let x2 = normalizePotassium[normalizePotassium.length - 2];
+                    let x1 = item;
+                    const a = 100 / (x1 - x2);
+                    const b = (-x2 * 100) / (x1 - x2);
+                    return (a * number + b);
+                }
+                else {
+                    return 100;
+                };
+            }
+        } else {
+            return (number) => {
+                if (number <= item) {
+                    let x2 = normalizePotassium[index - 1];
+                    let x1 = item;
+                    const a = 100 / (x1 - x2);
+                    const b = (-x2 * 100) / (x1 - x2);
+                    return (a * number + b);
+                }
+                else {
+                    let x2 = normalizePotassium[index + 1];
+                    let x1 = item;
+                    const a = 100 / (x1 - x2);
+                    const b = (-x2 * 100) / (x1 - x2);
+                    return (a * number + b);
+                };
+            }
+        }
+    });
+
+    const potassiumMin = fuzzyArray.map(fuzzy => fuzzy(normalizeRecomendation[1].min));
+    const potassiumMax = fuzzyArray.map(fuzzy => fuzzy(normalizeRecomendation[1].max));
+
+    const KformulaMin = normalizePotassium[potassiumMin.indexOf(Math.max(...potassiumMin))];
+    const KformulaMax = normalizePotassium[potassiumMin.indexOf(Math.max(...potassiumMax))];
+
+    const fertilyzerRecomendation = fertilyzerLibrary.filter(fertilyzer => {
+        return (!!normalizeRecomendation[0].min === !!fertilyzer.P) && ((fertilyzer.K / fertilyzer.N === KformulaMin) || (fertilyzer.K / fertilyzer.N === KformulaMax))
+    })
+
+    return { fertilyzerRecomendation }
+}
+
 const coffeeMacroCalculation = ({
     productivity,
     distanceLines,
@@ -113,7 +195,7 @@ const coffeeMacroCalculation = ({
         })
     }
 
-    if (potassium > 160) {
+    if (potassium >= 160) {
         recomendation = recomendation.map((item, key) => {
             if (item.label === 'K') {
                 return {
@@ -161,16 +243,6 @@ const coffeeMacroCalculation = ({
         }
     })
 
-    const convencionalRecomendationFilter = [{
-        label: 'P/N',
-        min: convencionalRecomendation[1].min / convencionalRecomendation[0].max,
-        max: convencionalRecomendation[1].max / convencionalRecomendation[0].min,
-    }, {
-        label: 'K/N',
-        min: convencionalRecomendation[2].min / convencionalRecomendation[0].max,
-        max: convencionalRecomendation[2].max / convencionalRecomendation[0].min,
-    }]
-
     const controlLiberationRecomendation = recomendation.map((item) => {
         return {
             ...item,
@@ -179,39 +251,9 @@ const coffeeMacroCalculation = ({
         }
     })
 
-    const controlLiberationRecomendationFilter = [{
-        label: 'P/N',
-        min: controlLiberationRecomendation[1].min / controlLiberationRecomendation[0].max,
-        max: controlLiberationRecomendation[1].max / controlLiberationRecomendation[0].min,
-    }, {
-        label: 'K/N',
-        min: controlLiberationRecomendation[2].min / controlLiberationRecomendation[0].max,
-        max: controlLiberationRecomendation[2].max / controlLiberationRecomendation[0].min,
-    }]
+    const controlLiberationFertilyzer = fertilyzerSelector(fertilizantesControlLiberation, controlLiberationRecomendation);
 
-    let fertilizantesControlLiberationRecomendation = fertilizantesControlLiberation.filter(
-        fertilizante => (fertilizante.K / fertilizante.N) > controlLiberationRecomendationFilter[1].min && (fertilizante.K / fertilizante.N) < controlLiberationRecomendationFilter[1].max
-    );
-
-
-    fertilizantesControlLiberationRecomendation = fertilizantesControlLiberationRecomendation.map(
-        fertilizante => {
-            return {
-                formula: `${fertilizante.N}-${fertilizante.P}-${fertilizante.K}`,
-                qtdHa: {
-                    min: Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N), controlLiberationRecomendation[2].min * 100 / (fertilizante.K)),
-                    max: Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N), controlLiberationRecomendation[2].max * 100 / (fertilizante.K)),
-                },
-                qtdPl: {
-                    min: Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N) / (plantDensity / 1000), controlLiberationRecomendation[2].min * 100 / (fertilizante.K) / (plantDensity / 1000)),
-                    max: Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N) / (plantDensity / 1000), controlLiberationRecomendation[2].max * 100 / (fertilizante.K) / (plantDensity / 1000)),
-                }
-            }
-        }
-    )
-
-
-    return { fertilizantesControlLiberationRecomendation };
+    return controlLiberationFertilyzer
 }
 
 export {
