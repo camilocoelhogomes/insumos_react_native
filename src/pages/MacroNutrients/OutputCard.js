@@ -2,26 +2,28 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
 const OutputCard = ({ recomendation }) => {
-
+    const {
+        formula,
+        qtdHa,
+        qtdPl
+    } = recomendation;
     return (
-        {
-            /*
-            <View style={localStyle.main}>
-                <View style={localStyle.outputLine}>
-                    <Text style={localStyle.label}>Formula:</Text>
-                    <Text style={localStyle.result}>{formula}</Text>
-                </View>
-                <View style={localStyle.outputLineBig}>
-                    <Text style={localStyle.label}>Quantidade por Hectare:</Text>
-                    <Text style={localStyle.resultBig}>{`De ${Math.round(qtdHa.min)} kg até ${Math.round(qtdHa.max)} kg`}</Text>
-                </View>
-                <View style={localStyle.outputLineBig}>
-                    <Text style={localStyle.label}>Quantidade por planta</Text>
-                    <Text style={localStyle.resultBig}>{`De ${Math.round(qtdPl.min)} g até ${Math.round(qtdPl.max)} g`}</Text>
-                </View>
+
+        <View style={localStyle.main}>
+            <View style={localStyle.outputLine}>
+                <Text style={localStyle.label}>Formula:</Text>
+                <Text style={localStyle.result}>{formula}</Text>
             </View>
-            */
-        }
+            <View style={localStyle.outputLineBig}>
+                <Text style={localStyle.label}>Quantidade por Hectare:</Text>
+                <Text style={localStyle.resultBig}>{`De ${Math.round(qtdHa.min)} kg até ${Math.round(qtdHa.max)} kg`}</Text>
+            </View>
+            <View style={localStyle.outputLineBig}>
+                <Text style={localStyle.label}>Quantidade por planta</Text>
+                <Text style={localStyle.resultBig}>{`De ${Math.round(qtdPl.min)} g até ${Math.round(qtdPl.max)} g`}</Text>
+            </View>
+        </View>
+
     )
 }
 

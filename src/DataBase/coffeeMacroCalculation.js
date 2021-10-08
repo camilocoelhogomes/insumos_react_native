@@ -76,10 +76,12 @@ const fertilyzerSelector = (fertilyzerLibrary, recomendation) => {
     const KformulaMax = normalizePotassium[potassiumMin.indexOf(Math.max(...potassiumMax))];
 
     const fertilyzerRecomendation = fertilyzerLibrary.filter(fertilyzer => {
-        return (!!normalizeRecomendation[0].min === !!fertilyzer.P) && ((fertilyzer.K / fertilyzer.N === KformulaMin) || (fertilyzer.K / fertilyzer.N === KformulaMax))
+        return (!!normalizeRecomendation[0].min === !!fertilyzer.P)
+            && ((fertilyzer.K / fertilyzer.N === KformulaMin)
+                || (fertilyzer.K / fertilyzer.N === KformulaMax))
     })
 
-    return { fertilyzerRecomendation }
+    return fertilyzerRecomendation
 }
 
 const coffeeMacroCalculation = ({
@@ -253,7 +255,31 @@ const coffeeMacroCalculation = ({
 
     const controlLiberationFertilyzer = fertilyzerSelector(fertilizantesControlLiberation, controlLiberationRecomendation);
 
-    return controlLiberationFertilyzer
+    const fertilizantesControlLiberationRecomendation = controlLiberationFertilyzer.map(
+        fertilizante => {
+            return {
+                formula: `${fertilizante.N}-${fertilizante.P}-${fertilizante.K}`,
+                qtdHa: {
+                    min: Math.min(
+                        Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N),
+                            controlLiberationRecomendation[2].min * 100 / (fertilizante.K)), Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N), controlLiberationRecomendation[2].max * 100 / (fertilizante.K))),
+                    max: Math.max(
+                        Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N),
+                            controlLiberationRecomendation[2].min * 100 / (fertilizante.K)), Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N), controlLiberationRecomendation[2].max * 100 / (fertilizante.K))),
+                },
+                qtdPl: {
+                    min: Math.min(
+                        Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N) / ((plantDensity / 1000)),
+                            controlLiberationRecomendation[2].min * 100 / (fertilizante.K)) / ((plantDensity / 1000)), Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N) / ((plantDensity / 1000)), controlLiberationRecomendation[2].max * 100 / (fertilizante.K) / ((plantDensity / 1000)))),
+                    max: Math.max(
+                        Math.max(controlLiberationRecomendation[0].min * 100 / (fertilizante.N) / ((plantDensity / 1000)),
+                            controlLiberationRecomendation[2].min * 100 / (fertilizante.K)) / ((plantDensity / 1000)), Math.min(controlLiberationRecomendation[0].max * 100 / (fertilizante.N) / ((plantDensity / 1000)), controlLiberationRecomendation[2].max * 100 / (fertilizante.K) / ((plantDensity / 1000)))),
+                }
+            }
+        }
+    )
+
+    return fertilizantesControlLiberationRecomendation;
 }
 
 export {

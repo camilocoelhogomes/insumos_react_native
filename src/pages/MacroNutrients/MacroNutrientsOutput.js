@@ -35,7 +35,11 @@ const MacroNutrientsOutputs = ({ macroNutrientsValues }) => {
     console.log(output);
     return (
         < View >
-            <Text>Camilo</Text>
+            {
+                output.map(
+                    (recomendation, key) => <OutputCard key={key} recomendation={recomendation} />
+                )
+            }
         </View >
     )
 }
