@@ -10,17 +10,21 @@ const OutputCard = ({ recomendation }) => {
     return (
 
         <View style={localStyle.main}>
-            <View style={localStyle.outputLine}>
+            <View style={localStyle.outputLineBig}>
                 <Text style={localStyle.label}>Formula:</Text>
                 <Text style={localStyle.result}>{formula}</Text>
             </View>
             <View style={localStyle.outputLineBig}>
                 <Text style={localStyle.label}>Quantidade por Hectare:</Text>
-                <Text style={localStyle.resultBig}>{`De ${Math.round(qtdHa.min)} kg até ${Math.round(qtdHa.max)} kg`}</Text>
+                <Text style={localStyle.result}>De{
+                    `${Math.round(qtdHa.min) >= 1000 ? ` ${Math.round(qtdHa.min) / 1000} T` : ` ${Math.round(qtdHa.min)} Kg`} até ${Math.round(qtdHa.max) >= 1000 ? ` ${Math.round(qtdHa.max) / 1000} T` : ` ${Math.round(qtdHa.max)} Kg`}`}
+                </Text>
             </View>
             <View style={localStyle.outputLineBig}>
                 <Text style={localStyle.label}>Quantidade por planta</Text>
-                <Text style={localStyle.resultBig}>{`De ${Math.round(qtdPl.min)} g até ${Math.round(qtdPl.max)} g`}</Text>
+                <Text style={localStyle.result}>De{
+                    `${Math.round(qtdPl.min) >= 1000 ? ` ${Math.round(qtdPl.min) / 1000} Kg` : ` ${Math.round(qtdPl.min)} g`} até ${Math.round(qtdPl.max) >= 1000 ? ` ${Math.round(qtdPl.max) / 1000} Kg` : ` ${Math.round(qtdPl.max)} g`}`}
+                </Text>
             </View>
         </View>
 
