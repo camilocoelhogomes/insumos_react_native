@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { coffeeMacroCalculation } from '../../DataBase/coffeeMacroCalculation';
 import OutputCard from './OutputCard';
+
 const MacroNutrientsOutputs = ({ macroNutrientsValues }) => {
     const [
         productivity,
@@ -11,6 +12,8 @@ const MacroNutrientsOutputs = ({ macroNutrientsValues }) => {
         phosphor,
         potassium
     ] = macroNutrientsValues
+
+
 
     const [output, setOutput] = useState(coffeeMacroCalculation({
         productivity: productivity.value,

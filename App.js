@@ -35,7 +35,9 @@ export default function App() {
             ios_backgroundColor="#FA5F43"
           />
         </View>
-        <MacroNutrients />
+        <MacroNutrients
+          hasSoloAnalisys={hasSoloAnalisys}
+        />
       </ScrollView>
     </SafeAreaView>
   );

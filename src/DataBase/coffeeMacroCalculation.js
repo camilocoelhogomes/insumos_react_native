@@ -71,11 +71,10 @@ const fertilyzerSelector = (fertilyzerLibrary, recomendation) => {
 
     const potassiumMin = fuzzyArray.map(fuzzy => fuzzy(normalizeRecomendation[1].min));
     const potassiumMax = fuzzyArray.map(fuzzy => fuzzy(normalizeRecomendation[1].max));
-
     const KformulaMin = normalizePotassium[potassiumMin.indexOf(Math.max(...potassiumMin))];
     const KformulaMax = normalizePotassium[potassiumMin.indexOf(Math.max(...potassiumMax))];
 
-    const fertilyzerRecomendation = fertilyzerLibrary.filter(fertilyzer => {
+    const fertilyzerRecomendation = fertilyzerLibrary.filter((fertilyzer) => {
         return (!!normalizeRecomendation[0].min === !!fertilyzer.P)
             && ((fertilyzer.K / fertilyzer.N === KformulaMin)
                 || (fertilyzer.K / fertilyzer.N === KformulaMax))
