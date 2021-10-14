@@ -14,7 +14,7 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
     const changeHandler = (value, item) => {
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
-                return { ...macroNutrient, value: Number(value) }
+                return { ...macroNutrient, value: Number(value).toFixed(0) }
             }
             return { ...macroNutrient }
         })
@@ -25,10 +25,10 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
         const NewMacroNutrientsValues = macroNutrientsValues.map(macroNutrient => {
             if (macroNutrient.item === item) {
                 if (operation === '+') {
-                    return { ...macroNutrient, value: Number(value + step) }
+                    return { ...macroNutrient, value: Math.round((Number(value) + step) * 100) / 100 }
                 }
                 if (operation === '-') {
-                    return { ...macroNutrient, value: Number(value - step) }
+                    return { ...macroNutrient, value: Math.round((Number(value) - step) * 100) / 100 }
                 }
             }
             return { ...macroNutrient }
@@ -40,14 +40,14 @@ const InputField = ({ macroNutrient, macroNutrientsValues, setMacroNutrientsValu
         <View style={localStyle.main}>
             <View style={localStyle.inputArea}>
                 <Text style={localStyle.inputLabel}>{label}</Text>
-                <TextInput
-                    style={localStyle.input}
-                    onChangeText={(value) => changeHandler(value, item)}
-                    keyboardType='numeric'
-                    value={value.toString()}
-                />
-                <View>
-                    <Text>{unit}</Text>
+                <View style={localStyle.inputPlaceHolder}>
+                    <TextInput
+                        style={localStyle.input}
+                        onChangeText={(value) => changeHandler(value, item)}
+                        keyboardType='numeric'
+                        value={value.toString()}
+                    />
+                    <Text style={localStyle.unit}>{' ' + unit}</Text>
                 </View>
             </View>
             <View style={localStyle.buttomArea}>
@@ -86,17 +86,26 @@ const localStyle = StyleSheet.create({
         fontFamily: 'Inter500',
         fontSize: 15,
     },
-
+    inputPlaceHolder: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: '#A3A3A3',
+        width: 180,
+        height: 40,
+        justifyContent: 'flex-end',
+    },
     input: {
         height: 40,
         textAlign: 'right',
         fontSize: 16,
-        width: 180,
-        borderBottomWidth: 1,
-        borderBottomColor: '#A3A3A3',
+        width: '50%',
         fontFamily: 'Inter400'
     },
-
+    unit: {
+        fontSize: 16,
+        fontFamily: 'Inter400'
+    },
     buttomArea: {
         flexDirection: 'row',
         width: 90,
