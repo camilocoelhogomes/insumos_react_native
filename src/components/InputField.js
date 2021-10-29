@@ -54,7 +54,17 @@ const InputField = ({
             keyboardType="numeric"
             value={value.toString()}
           />
-          <Text style={{ paddingLeft: 15, fontSize: 15 }}>{unit}</Text>
+          <Text
+            style={{
+              paddingLeft: 15,
+              fontSize: 15,
+              borderWidth: 0,
+              textAlign: 'left',
+              color: theme.colors.subtitle
+            }}
+          >
+            {unit}
+          </Text>
         </View>
       </View>
 
@@ -101,7 +111,8 @@ const localStyle = StyleSheet.create({
 
   inputLabel: {
     fontFamily: theme.fonts.text500,
-    fontSize: 18
+    fontSize: 16,
+    color: theme.colors.title
   },
   inputUnit: {
     flexDirection: 'row',
@@ -110,12 +121,12 @@ const localStyle = StyleSheet.create({
 
   input: {
     height: 40,
-    textAlign: 'right',
+    textAlign: 'left',
     fontSize: 20,
-    width: 180,
+    width: 120,
     borderBottomWidth: 1,
     borderBottomColor: '#A3A3A3',
-    fontFamily: theme.fonts.text400
+    fontFamily: theme.fonts.text500
   },
 
   buttomArea: {

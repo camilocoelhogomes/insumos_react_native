@@ -10,6 +10,7 @@ import {
 import { useFonts } from 'expo-font'
 import MacroNutrients from './MacroNutrients/MacroNutrients'
 import { useState } from 'react'
+import { theme } from '../../global/styles/theme'
 
 export default function Calculator() {
   /*const [loaded] = useFonts({
@@ -23,10 +24,9 @@ export default function Calculator() {
   const [hasSoloAnalisys, setHasSoloAnalisys] = useState(true)
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar />
+    <View style={styles.container}>
       <View style={styles.soloAnalisysArea}>
-        <Text style={{ fontSize: 20 }}>Possui análise de solo?</Text>
+        <Text style={styles.labelSwitch}>Possui análise de solo?</Text>
         <Switch
           style={styles.switch}
           value={hasSoloAnalisys}
@@ -37,14 +37,14 @@ export default function Calculator() {
         />
       </View>
       <MacroNutrients />
-    </SafeAreaView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA'
+    borderWidth: 0
   },
   soloAnalisysArea: {
     paddingHorizontal: 25,
@@ -55,5 +55,10 @@ const styles = StyleSheet.create({
   },
   switch: {
     transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }]
+  },
+  labelSwitch: {
+    fontSize: 20,
+    fontFamily: theme.fonts.text500,
+    color: theme.colors.heading
   }
 })

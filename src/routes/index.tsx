@@ -2,12 +2,12 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
 import { AppRoutes } from './app.routes'
-import { SignIn } from '../screens/SignIn'
+import { SignIn } from '../screens/SignIn/SignIn'
 import { navigationTheme } from '../global/styles/theme'
 //import { useAuth } from '../hook/auth'
 
 const user = {
-  id: 1,
+  id: 0,
   username: 'lucas'
 }
 

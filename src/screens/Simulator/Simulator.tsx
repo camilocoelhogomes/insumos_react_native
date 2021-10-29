@@ -35,20 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between'
   },
-  header: {
-    width: '100%',
-    height: 60,
-    paddingHorizontal: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: getStatusBarHeight(),
-    borderWidth: 0,
-    marginBottom: 42
-  },
-  logo: {
-    width: 120,
-    height: 40
-  },
   footer: {
     width: '100%',
     height: '7%',

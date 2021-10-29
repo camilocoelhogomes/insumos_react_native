@@ -6,10 +6,12 @@ import LogoHorizontalSvg from '../../../assets/img/logoHorizontal.svg'
 import { Profile } from './Profile'
 
 import { theme } from '../../global/styles/theme'
+import { StatusBar } from 'expo-status-bar'
 
 export function MainHeader() {
   return (
     <View style={styles.header}>
+      <StatusBar backgroundColor="transparent" />
       <LogoHorizontalSvg width={120} height={120} />
       <Profile />
     </View>
@@ -23,8 +25,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: getStatusBarHeight(),
+    marginTop: getStatusBarHeight() + 10,
     borderWidth: 0,
-    marginBottom: 42
+    marginBottom: 10
   }
 })

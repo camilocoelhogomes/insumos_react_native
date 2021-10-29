@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   main: {},
   title: {
     fontSize: 60,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontFamily: theme.fonts.title700
   }
 })
